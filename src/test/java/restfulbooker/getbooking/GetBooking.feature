@@ -7,6 +7,9 @@ Feature: Get Booking
     * header Accept = 'application/json'
 
     Scenario: Verificar petición correcta con una reserva id reciba cod 200
-      Given path '/booking/' + 10
+      * string schema = read('classpath:restfulbooker/getbooking/scenario1-schema.json')
+      * def SchemaUtils = Java.type('com.intuit.karate.restfulbooker.util.SchemaUtils')
+      Given path '/booking/' + 5
       When method GET
       Then status 200
+      * assert SchemaUtils.isValid(response, schema)
